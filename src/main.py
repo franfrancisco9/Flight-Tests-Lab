@@ -10,9 +10,13 @@ def main():
     a4 = A(4)
 
     a1.graph()
+    a1.single_sided_magnitude_spectrum()
     a2.graph()
+    a2.single_sided_magnitude_spectrum()
     a3.graph()
+    a3.single_sided_magnitude_spectrum()
     a4.graph()
+    a4.single_sided_magnitude_spectrum()
 
 
 

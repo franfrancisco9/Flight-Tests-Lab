@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from scipy.signal import find_peaks as fp
 
 class A:
     '''
@@ -14,7 +15,8 @@ class A:
         self.n = n
         self.a = self.collect_data(n) # collect acceleration values
         self.style = style            # style for the plots if none given reverts to classic
-        
+        self.magn = 0
+        self.feq = 0
 
     def collect_data(self, n):
         '''
@@ -39,24 +41,42 @@ class A:
         '''
         Plot the graph for a given acceleration
         '''
-        if t != []:
-            a = []
-            for i in range(len(t)):
-                for j in range(len(self.t)):
-                    if t[i] == self.t[j]:
-                        a.append(self.a[j])
-            self.t = t
-            self.a = a
+        # if t != []:
+        #     a = []
+        #     for i in range(len(t)):
+        #         for j in range(len(self.t)):
+        #             if t[i] == self.t[j]:
+        #                 a.append(self.a[j])
+        #     self.t = t
+        #     self.a = a
 
-        plt.figure(self.n)
+        plt.figure("a"+str(self.n))
         plt.plot(self.t, self.a, self.style)
+        plt.title("Variação temporal da aceleração " + str(self.n))
         plt.xlabel('t [s]') 
-        # naming the y axis 
         plt.ylabel('a'+ str(self.n) +' [m/s^2]') 
         plt.autoscale() 
+        plt.savefig("../results/A10/a"+str(self.n)+".png")
         plt.show()
 
-
+    def single_sided_magnitude_spectrum(self):
+        '''
+        Plot the single-sided magnitude  spectrum for a given acceleration
+        '''
+        plt.figure("Espetro a"+str(self.n))
+        out = plt.magnitude_spectrum(self.a)
+        self.magn = out[0]
+        self.freq = out[1]
+        peaks, _ = fp(self.magn,height = 0)
+        plt.plot(self.freq, self.magn)
+        plt.plot(self.freq[peaks], self.magn[peaks], "x")
+        plt.title("Espetro unilateral de amplitude da aceleração " + str(self.n))
+        plt.xlabel('Frequency [Hz]') 
+        plt.ylabel('|a'+ str(self.n) +'(t)|') 
+        plt.autoscale() 
+        plt.savefig("../results/A10/espetro_a"+str(self.n)+".png")
+        plt.show()
+        
 if __name__ == '__main__':  
     a1 = A(1)
-    a1.collect_data(1)
+    a1.single_sided_magnitude_spectrum()
