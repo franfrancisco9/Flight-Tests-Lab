@@ -17,6 +17,8 @@ def main():
     a3.single_sided_magnitude_spectrum()
     a4.graph()
     a4.single_sided_magnitude_spectrum()
+    print(a4.peaksf)
+    print(a4.peaksm)
 
 
 

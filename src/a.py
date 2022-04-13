@@ -18,6 +18,8 @@ class A:
         self.style = style            # style for the plots if none given reverts to classic
         self.magn = 0
         self.feq = 0
+        self.peaksf = np.array([])
+        self.peaksm = np.array([])
 
     def collect_data(self, n):
         '''
@@ -72,8 +74,12 @@ class A:
         max_index = np.where(self.magn == np.amax(self.magn))
         if max_index not in peaks:
             peaks = np.append(max_index, peaks)
+
+        self.peaksf = self.freq[peaks]
+        self.peaksm = self.magn[peaks]
         plt.plot(self.freq, self.magn)
-        plt.plot(self.freq[peaks], self.magn[peaks], "x")
+        plt.plot( self.peaksf, self.peaksm, "x")
+
         plt.title("Espetro unilateral de amplitude da aceleração " + str(self.n))
         plt.xlabel('Frequency [Hz]') 
         plt.ylabel('|a'+ str(self.n) +'(t)|') 
