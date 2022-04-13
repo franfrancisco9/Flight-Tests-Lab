@@ -1,6 +1,8 @@
 import numpy as np
 from a import A
+from b import B
 from tabulate import *
+import matplotlib.pyplot as plt
 
 def exercise_a():
     '''
@@ -47,14 +49,28 @@ def exercise_b():
     '''
     function that generates all the necessary results to answer exercise b
     '''           
-    return; 
+    
+    hpe = B('Error H')
+    error_hpe = hpe.error
+    hpe.graph(error_hpe, "HPE", '[m]')
+
+    vpe = B('Error V')
+    error_vpe = vpe.error
+    vpe.graph(error_vpe, "VPE", '[m]')
+
+
+
+   
+        
 
 def main():
     '''
     main function
     '''
     exercise_a()
-
+    exercise_b()
+    plt.show()
+    print("Ended Results")
 
 if __name__ == '__main__':
     main()

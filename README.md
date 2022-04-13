@@ -6,3 +6,8 @@
 ```src``` folder contains the code used for the analysis.
 
 ```results``` folder contains the plots and results.
+
+Run ```pip install -r requirements.tx``` to install required packages.
+
+Start program with ```\src\main.py```
+
