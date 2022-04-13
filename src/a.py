@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy.signal import find_peaks as fp
 
 class A:
@@ -67,7 +68,10 @@ class A:
         out = plt.magnitude_spectrum(self.a)
         self.magn = out[0]
         self.freq = out[1]
-        peaks, _ = fp(self.magn,height = 0)
+        peaks, _ = fp(self.magn,height = 0.5)
+        max_index = np.where(self.magn == np.amax(self.magn))
+        if max_index not in peaks:
+            peaks = np.append(max_index, peaks)
         plt.plot(self.freq, self.magn)
         plt.plot(self.freq[peaks], self.magn[peaks], "x")
         plt.title("Espetro unilateral de amplitude da aceleração " + str(self.n))
