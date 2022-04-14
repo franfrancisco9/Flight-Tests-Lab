@@ -7,7 +7,7 @@
 
 ```results``` folder contains the plots and results.
 
-Run ```pip install -r requirements.tx``` to install required packages.
+Run ```pip install -r requirements.txt``` to install required packages.
 
 Start program with ```\src\main.py```
 

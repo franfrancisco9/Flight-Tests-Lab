@@ -1,23 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from math import radians, cos, sin, asin, sqrt
-
-# from https://stackoverflow.com/questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
-def haversine(lat1, lon1, lat2, lon2):
-    """
-    Calculate the great circle distance in kilometers between two points 
-    on the earth (specified in decimal degrees)
-    """
-    # convert decimal degrees to radians 
-    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
-
-    # haversine formula 
-    dlon = lon2 - lon1 
-    dlat = lat2 - lat1 
-    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    c = 2 * asin(sqrt(a)) 
-    r = 6378.137 # Radius of earth in kilometers. Use 3956 for miles. Determines return value units.
-    return c * r * 1000
+from vincenty import vincenty
 
 class B:
     '''
@@ -92,8 +76,12 @@ class B:
             ref_lat = self.collect_data('REF_LAT')
             ref_lon = self.collect_data('REF_LON')
             for i in range(len(ns_lat)):
-                error.append(haversine(ns_lat[i],ns_lon[i],
-                    ref_lat[i],ref_lon[i]))
+                error.append(
+                    vincenty(
+                    (ns_lat[i],ns_lon[i]),
+                    (ref_lat[i],ref_lon[i])
+                    )*1000  #convert to meters
+                )
         else:
             ns_alt = self.collect_data('NS_ALT')
             ref_alt = self.collect_data('REF_ALT')

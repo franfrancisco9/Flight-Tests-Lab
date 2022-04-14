@@ -58,11 +58,6 @@ def exercise_b():
     error_vpe = vpe.error
     vpe.graph(error_vpe, "VPE", '[m]')
 
-
-
-   
-        
-
 def main():
     '''
     main function
