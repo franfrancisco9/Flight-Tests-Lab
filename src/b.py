@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy as np
-from math import radians, cos, sin, asin, sqrt
+from math import sqrt
 from vincenty import vincenty
 
 class B:

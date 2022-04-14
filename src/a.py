@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks as fp
+from tabulate import tabulate
 
 class A:
     '''
@@ -75,3 +76,18 @@ class A:
 
     def get_results_peaks(self):
         return self.peaksf, self.peaksm
+
+    def generate_latex_tables_peaks(self, accelerations, i):
+         with open("../results/A10/peaks_results_a"+str(i+1)+".tex", 'w') as f:
+            rows = []
+            row_header = ["Picos de a"+str(i+1)] 
+            row_f = ["Frequência [Hz]"]
+            row_m = ["Magnitude"]
+            for j in range(len(accelerations['a'+str(i+1)].get_results_peaks()[0])):
+                row_header.append("Pico " + str(j))
+                row_f.append(accelerations['a'+str(i+1)].get_results_peaks()[0][j])
+                row_m.append(accelerations['a'+str(i+1)].get_results_peaks()[1][j])
+                
+            rows = [row_header, row_f, row_m]
+            table = tabulate(rows, headers='firstrow', tablefmt='latex')
+            f.write(table)
