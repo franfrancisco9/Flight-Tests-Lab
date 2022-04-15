@@ -68,9 +68,9 @@ class A:
 
         plt.plot(self.freq, self.magn)
         plt.plot( self.peaksf, self.peaksm, "x")
-        plt.title("Espetro unilateral de amplitude da aceleração " + str(self.n))
+        plt.title("Espetro unilateral de amplitude da aceleração " + str(self.n) )
         plt.xlabel('Frequency [Hz]') 
-        plt.ylabel('|a'+ str(self.n) +'(t)|') 
+        plt.ylabel('|a'+ str(self.n) +'(t)|' + ' [m*s^-2]') 
         plt.autoscale() 
         plt.savefig("../results/A10/espetro_a"+str(self.n)+".png")
 
