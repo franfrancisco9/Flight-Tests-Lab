@@ -80,6 +80,24 @@ def exercise_c():
     for i in variables:
         variables[i].graph()
 
+    acceleration_gs = variables['a_z'].acceleration_converter()
+    variables['a_z'].graph(acceleration_gs, 'a_z medida para g', '[g]')
+
+    variables['a_z'].local_extremes(acceleration_gs)
+
+    pairs = [[2.0, 1.7], [3.5, 3.2], [4.5, 4.2], [5.5, 5.2], [7.0, 6.7], [0.0, 0.3], [-1.0, -0.7], [-2.5, -2.2]]
+    occurrences = []
+    for i in pairs:
+        occurrences.append(variables['a_z'].occurence_counter(i[0], i[1]))
+
+    occurrences_file = []
+    for i in pairs:
+        occurrences_file.append(variables['a_z'].occurence_counter_file(i[0], i[1]))
+
+    #rint(occurrences)
+    #print(occurrences_file)
+
+
 def main():
     '''
     main function

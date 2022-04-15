@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from math import sqrt
-from vincenty import vincenty
 from tabulate import tabulate
+from scipy.signal import argrelextrema
 
 class C:
     '''
@@ -64,3 +64,62 @@ class C:
              plt.ylabel(variable + ' ' + units) 
         plt.autoscale() 
         plt.savefig("../results/C10/"+variable+".png")
+
+    def acceleration_converter(self):
+        g0 = 9.80665 # m*s^-2
+        acceleration = self.collect_data('a_z')
+        for i in range(len(acceleration)):
+            acceleration[i] = round(acceleration[i]/g0, 3)
+
+        return acceleration
+
+    def local_extremes(self, acceleration):
+        '''
+        Write in a file only local max and min for a_z measured in g's, format: a_z(g)\n
+        '''
+        acceleration = np.array(acceleration)
+        with open("../results/C10/local_extreme.txt", 'w') as f:
+            indicex_max = argrelextrema(acceleration, np.greater)
+            indices_min = argrelextrema(acceleration, np.less)
+            indices = np.sort(np.append(indices_min[0],indicex_max[0]))
+            acceleration = acceleration[indices]
+            for i in range(len(acceleration)):
+                line = str(acceleration[i])  + '\n'
+                f.write(line)
+
+    def occurence_counter(self, n1, n2, file = []):
+        if file == []:
+            acceleration = self.acceleration_converter()
+        else:
+            acceleration = file
+        occurrences = 0
+        flag = 0
+        #print("PAIR:",n1,'---',n2)
+        if n1 > 1:
+            for i in range(len(acceleration)):
+                if acceleration[i] > n1 and flag == 0:
+                    flag = 1
+                    #print(acceleration[i], '>', n1)
+                elif acceleration[i] < n2 and flag == 1:
+                    occurrences += 1
+                    flag = 0
+                    #print(acceleration[i], '<', n2)
+        elif n1 < 1:
+            for i in range(len(acceleration)):
+                if acceleration[i] < n1 and flag == 0:
+                    flag = 1
+                    #print(acceleration[i], '<', n1)
+                elif acceleration[i] > n2 and flag == 1:
+                    occurrences += 1
+                    flag = 0
+                    #print(acceleration[i], '>', n2)
+
+        return occurrences
+
+    def occurence_counter_file(self, n1, n2):
+        with open("../results/C10/local_extreme.txt", 'r') as f:
+            accelerations = []
+            for line in f:
+                accelerations.append(float(line.split('\n')[0]))
+        occurrences = self.occurence_counter(n1, n2, accelerations)
+        return occurrences
