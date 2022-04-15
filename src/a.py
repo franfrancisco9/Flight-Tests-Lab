@@ -49,7 +49,7 @@ class A:
         plt.plot(self.t, self.a)
         plt.title("Variação temporal da aceleração " + str(self.n))
         plt.xlabel('t [s]') 
-        plt.ylabel('a'+ str(self.n) +' [m/s^2]') 
+        plt.ylabel('a'+ str(self.n) +' [m*s^-2]') 
         plt.autoscale() 
         plt.savefig("../results/A10/a"+str(self.n)+".png")
 

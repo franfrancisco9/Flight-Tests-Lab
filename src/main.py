@@ -1,6 +1,7 @@
 import numpy as np
 from a import A
 from b import B, Performance
+from c import C
 import matplotlib.pyplot as plt
 
 def exercise_a():
@@ -70,13 +71,22 @@ def exercise_b():
 
     continuity = [round(float(i.split('%')[0])/100,3) for i in availability]
     data.generate_latex_tables_continuity(continuity)
-    
+
+def exercise_c():
+    variables = {'EAS':C('EAS'), 'QNE':C('QNE'), 'a_z':C('a_z'),
+                 'N2_rh':C('N2_rh'), 'FF_rh':C('FF_rh'), 'EGT_rh':C('EGT_rh'), 
+                 'N2_lt':C('N2_lt'), 'FF_lt':C('FF_lt'), 'EGT_lt':C('EGT_lt')
+                }
+    for i in variables:
+        variables[i].graph()
+
 def main():
     '''
     main function
     '''
     exercise_a()
     exercise_b()
+    exercise_c()
     #plt.show()
     print("Ended Results")
 

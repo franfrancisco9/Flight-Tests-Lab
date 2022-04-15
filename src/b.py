@@ -15,7 +15,7 @@ class B:
         eg: a3, n = 3
         '''
         self.list = {'RX_TOM':[0,'s'], 'RX_WEEK':[1,'nº semana gps'], 'NSV_LOCK':[2,'nº satélites'], 'NSV_USED':[3,'nº satélites'],
-         'NS_LAT':[4,'°'],'NS_LON':[5,'°'], 'NS_ALT':[6,'m'], 'NS_VE':[7,'ms^-1'], 'NS_VN':[8,'ms^-1'], 'NS_VU':[9,'ms^-1'], 
+         'NS_LAT':[4,'°'],'NS_LON':[5,'°'], 'NS_ALT':[6,'m'], 'NS_VE':[7,'ms^-1'], 'NS_VN':[8,'m*s^-1'], 'NS_VU':[9,'m*s^-1'], 
          'NS_HPL':[10,'m'], 'NS_VPL':[11,'m'], 'REF_LAT':[12,'°'], 'REF_LON':[13,'°'], 'REF_ALT':[14,'m']}
         self.path = "../data/EV_2022.B10"        # path to file
         self.t = self.collect_data('RX_TOM')     # collect time
