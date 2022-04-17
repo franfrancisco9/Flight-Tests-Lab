@@ -57,11 +57,11 @@ def exercise_b():
                      },
             }
     data = Performance(modes)
-    accuracies = data.limit_percentil(errors['Error H'].error, errors['Error V'].error, 'HPE', 'VPE')
-    data.generate_latex_tables_limit_percentil(accuracies, 'HPE', 'VPE', 'accuracy')
+    accuracies, percentil_values = data.limit_percentil(errors['Error H'].error, errors['Error V'].error, 'HPE', 'VPE')
+    data.generate_latex_tables_limit_percentil(accuracies, percentil_values, 'HPE', 'VPE', 'accuracy')
 
-    integrities = data.limit_percentil(protection_limits['NS_HPL'].variable, protection_limits['NS_VPL'].variable, 'HAL', 'VAL')
-    data.generate_latex_tables_limit_percentil(integrities, 'HAL', 'VAL', 'integrity')
+    integrities, percentil_values = data.limit_percentil(protection_limits['NS_HPL'].variable, protection_limits['NS_VPL'].variable, 'HAL', 'VAL')
+    data.generate_latex_tables_limit_percentil(integrities, percentil_values, 'HAL', 'VAL', 'integrity')
 
     integrity_events = data.integrity_event(protection_limits['NS_HPL'].variable, errors['Error H'].error, protection_limits['NS_VPL'].variable, errors['Error V'].error)
     data.generate_latex_tables_integrity_event(integrity_events)

@@ -100,9 +100,10 @@ class Performance:
         Returns True if the given the data1 and data2 values repects the percentil below the limit and modes to study
         '''
         results = []
-        
+        values = []
         for j in self.data:
             result = []
+            value = []
             limit = self.data[j][mode1][0]
             percentil = self.data[j][mode1][1] 
             percentil_value = np.percentile(data1, percentil) 
@@ -110,6 +111,7 @@ class Performance:
                 result.append(True)
             else:
                 result.append(False)
+            value.append(percentil_value)
             
             limit = self.data[j][mode2][0]
             percentil = self.data[j][mode2][1] 
@@ -118,12 +120,14 @@ class Performance:
                 result.append(True)
             else:
                 result.append(False)
+            value.append(percentil_value)
+            values.append(value)
 
             results.append(result)
 
-        return results
+        return results , values
 
-    def generate_latex_tables_limit_percentil(self, accuracies, mode1, mode2, name_table):
+    def generate_latex_tables_limit_percentil(self, accuracies, percentil_values,  mode1, mode2, name_table):
          with open("../results/B10/tables/" + name_table + "_table.tex", 'w') as f:
             rows = []
             row_header = ["Modos de Operação"]
@@ -131,11 +135,14 @@ class Performance:
             for j in self.data: 
                 if k == 0:
                     row_header.append(mode1 + "(" + str(self.data[j][mode1][1]) + "%)")
+                    row_header.append('Valor do percentil')
                     row_header.append(mode2 + "(" + str(self.data[j][mode2][1]) + "%)")
+                    row_header.append('Valor do percentil')
                     rows.append(row_header)
                 row = [j]
                 for j in range(2):
                     row.append(accuracies[k][j])
+                    row.append(percentil_values[k][j])
                 k += 1
                 rows.append(row)
             table = tabulate(rows, headers='firstrow', tablefmt='latex')
