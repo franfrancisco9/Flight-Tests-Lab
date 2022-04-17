@@ -94,8 +94,8 @@ def exercise_c():
     for i in pairs:
         occurrences_file.append(variables['a_z'].occurence_counter_file(i[0], i[1]))
 
-    #rint(occurrences)
-    #print(occurrences_file)
+    variables['a_z'].save_occurence(occurrences, 'occurrences', pairs)
+    variables['a_z'].save_occurence(occurrences_file, 'occurrences_file', pairs)
 
 
 def main():

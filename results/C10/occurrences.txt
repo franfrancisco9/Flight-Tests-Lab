@@ -1,0 +1,8 @@
+N_1 = 2.0 g e N_2 = 1.7 g ---> 131 ocorrências
+N_1 = 3.5 g e N_2 = 3.2 g ---> 88 ocorrências
+N_1 = 4.5 g e N_2 = 4.2 g ---> 36 ocorrências
+N_1 = 5.5 g e N_2 = 5.2 g ---> 2 ocorrências
+N_1 = 7.0 g e N_2 = 6.7 g ---> 0 ocorrências
+N_1 = 0.0 g e N_2 = 0.3 g ---> 7 ocorrências
+N_1 = -1.0 g e N_2 = -0.7 g ---> 0 ocorrências
+N_1 = -2.5 g e N_2 = -2.2 g ---> 0 ocorrências

@@ -113,7 +113,7 @@ class C:
                     occurrences += 1
                     flag = 0
                     #print(acceleration[i], '>', n2)
-
+        
         return occurrences
 
     def occurence_counter_file(self, n1, n2):
@@ -123,3 +123,9 @@ class C:
                 accelerations.append(float(line.split('\n')[0]))
         occurrences = self.occurence_counter(n1, n2, accelerations)
         return occurrences
+    
+
+    def save_occurence(self, occurrences, name, pairs):
+        with open("../results/C10/" + name + ".txt", 'w') as f:
+            for i in range(len(occurrences)):
+                f.write('N_1 = ' + str(pairs[i][0]) + ' g e N_2 = ' + str(pairs[i][1]) + ' g ---> ' + str(occurrences[i]) + ' ocorrências' + '\n')
