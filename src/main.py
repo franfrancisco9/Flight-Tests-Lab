@@ -27,6 +27,10 @@ def exercise_b():
     for i in protection_limits:
         protection_limits[i].graph()
 
+
+
+    protection_limits['NS_HPL'].graph(protection_limits['NS_HPL'].collect_data('NS_HPL'), 'empty', 'empty', protection_limits['NS_HPL'].collect_data('NS_HPL'), errors['Error H'].error, ['HPL', 'HPE'], 'Erro de navegação e nível de proteção horizontal', 'metros')
+    protection_limits['NS_VPL'].graph(protection_limits['NS_VPL'].collect_data('NS_VPL'), 'empty', 'empty', protection_limits['NS_VPL'].collect_data('NS_VPL'), errors['Error V'].error, ['VPL', 'VPE'], 'Erro de navegação e nível de proteção vertical', 'metros')
     available_satelites = B('NSV_LOCK')
     used_satelites = B('NSV_USED')
 
@@ -37,6 +41,7 @@ def exercise_b():
     available_satelites.graph()
     used_satelites.graph()
     used_satelites.graph(data_difference, 'Satélites Restantes', '[nº satélites]')
+    used_satelites.graph(data_difference, 'Satélites Restantes', '[nº satélites]', data_available, data_used, data_difference, ['NSV_LOCK', 'NSV_USED', 'Satélites Livres'], 'Número de Satélites em função do tempo', 'Número de Satélites')
 
     # Accuracy and Integrity
     # modes: name: [[HPE Limit, HPE percentil],[VPE limit, VPE percentil], [HAL limit, HAL percentil], [VAL limit, VAL percentil]]

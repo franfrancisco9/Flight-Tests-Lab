@@ -48,7 +48,7 @@ class B:
                     continue                                 
         return variable
     
-    def graph(self, values = [], variable = '', units = ''):
+    def graph(self, values = [], variable = '', units = '', *variables_and_legend): # [[values por ordem], 'legend', 'title', 'ylabel']
         '''
         Plot the graph for a given acceleration
         '''
@@ -57,17 +57,27 @@ class B:
         if variable == '':
             variable = self.v
 
-        plt.figure(variable)
-        plt.plot(self.t, values)
-        plt.title("Variação temporal da variável " + variable)
-        plt.xlabel('t [s]') 
-        if variable == self.v:
-            plt.ylabel(variable + ' [' + self.list[self.v][1] + ']') 
+        if variables_and_legend == ():
+            plt.figure(variable)
+            plt.plot(self.t, values)
+            plt.title("Variação temporal da variável " + variable)
+            plt.xlabel('t [s]') 
+            if variable == self.v:
+                plt.ylabel(variable + ' [' + self.list[self.v][1] + ']') 
+            else:
+                plt.ylabel(variable + ' ' + units) 
+            plt.autoscale() 
+            plt.savefig("../results/B10/"+variable+".png")
         else:
-             plt.ylabel(variable + ' ' + units) 
-        plt.autoscale() 
-        plt.savefig("../results/B10/"+variable+".png")
-
+            plt.figure()
+            plt.ylabel(variables_and_legend[-1])
+            plt.title(variables_and_legend[-2])
+            plt.xlabel('t [s]') 
+            for i in range(len(variables_and_legend)-3):
+                plt.plot(self.t, variables_and_legend[i])
+            lgd = plt.legend(variables_and_legend[-3], loc='center left', bbox_to_anchor=(1, 0.5))
+            plt.autoscale() 
+            plt.savefig("../results/B10/"+variables_and_legend[-2]+".png",  bbox_inches="tight")
     def error_calculation(self):
         error = []
         if self.error_type == "H":

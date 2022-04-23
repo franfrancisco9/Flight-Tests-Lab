@@ -45,7 +45,7 @@ class C:
                     continue                                 
         return variable
     
-    def graph(self, values = [], variable = '', units = ''):
+    def graph(self, values = [], variable = '', units = '', time = []):
         '''
         Plot the graph for a given acceleration
         '''
@@ -55,13 +55,19 @@ class C:
             variable = self.v
 
         plt.figure(variable)
-        plt.plot(self.t, values)
+        if time != []:
+            plt.scatter(self.t, values, s = 5)
+        else:
+            plt.plot(self.t, values)
         plt.title("Variação temporal da variável " + variable)
         plt.xlabel('t [s]') 
         if variable == self.v:
             plt.ylabel(variable + ' [' + self.list[self.v][1] + ']') 
         else:
-             plt.ylabel(variable + ' ' + units) 
+            if time != []:
+                plt.ylabel(units)
+            else:
+                plt.ylabel(variable + ' ' + units) 
         plt.autoscale() 
         plt.savefig("../results/C10/"+variable+".png")
 
@@ -75,16 +81,23 @@ class C:
 
     def local_extremes(self, acceleration):
         '''
-        Write in a file only local max and min for a_z measured in g's, format: a_z(g)\n
+        Write in a file only local max and min for a_z measured in g's, format: t, a_z(g)\n
         '''
         acceleration = np.array(acceleration)
         with open("../results/C10/local_extreme.txt", 'w') as f:
             indicex_max = argrelextrema(acceleration, np.greater)
             indices_min = argrelextrema(acceleration, np.less)
             indices = np.sort(np.append(indices_min[0],indicex_max[0]))
+            self.t =  np.array(self.t)
+            self.t = self.t[indices]
             acceleration = acceleration[indices]
+            if acceleration[1] > acceleration[0]:
+                tipo = ['vale', 'pico']
+            else:
+                tipo = ['pico', 'vale']
+            self.graph(acceleration, 'Extremos locais aceleração (picos e vales)', 'a_z [g]', ['change'])
             for i in range(len(acceleration)):
-                line = str(acceleration[i])  + '\n'
+                line = str(self.t[i]) + ';' + str(acceleration[i])  + ';' + str(tipo[i % 2]) + '\n'
                 f.write(line)
 
     def occurence_counter(self, n1, n2, file = []):
@@ -120,7 +133,7 @@ class C:
         with open("../results/C10/local_extreme.txt", 'r') as f:
             accelerations = []
             for line in f:
-                accelerations.append(float(line.split('\n')[0]))
+                accelerations.append(float(line.split(';')[1]))
         occurrences = self.occurence_counter(n1, n2, accelerations)
         return occurrences
     
