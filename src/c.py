@@ -96,9 +96,13 @@ class C:
             else:
                 tipo = ['pico', 'vale']
             self.graph(acceleration, 'Extremos locais aceleração (picos e vales)', 'a_z [g]', ['change'])
+            j = 1
             for i in range(len(acceleration)):
-                line = str(self.t[i]) + ';' + str(acceleration[i])  + ';' + str(tipo[i % 2]) + '\n'
+                #line = str(self.t[i]) + ';' + str(acceleration[i])  + ';' + str(tipo[i % 2]) + '\t\t' + '| '
+                #if j % 4 == 0: # used to generate file for latex 
+                line = str(self.t[i]) + ';' + str(acceleration[i])  + ';' + str(tipo[i % 2]) + '\n' 
                 f.write(line)
+                j += 1
 
     def occurence_counter(self, n1, n2, file = []):
         '''
