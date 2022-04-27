@@ -78,6 +78,9 @@ def exercise_b():
     data.generate_latex_tables_continuity(continuity)
 
 def exercise_c():
+    '''
+    function that generates all the necessary results to answer exercise c
+    '''         
     variables = {'EAS':C('EAS'), 'QNE':C('QNE'), 'a_z':C('a_z'),
                  'N2_rh':C('N2_rh'), 'FF_rh':C('FF_rh'), 'EGT_rh':C('EGT_rh'), 
                  'N2_lt':C('N2_lt'), 'FF_lt':C('FF_lt'), 'EGT_lt':C('EGT_lt')

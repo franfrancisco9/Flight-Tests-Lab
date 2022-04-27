@@ -78,7 +78,11 @@ class B:
             lgd = plt.legend(variables_and_legend[-3], loc='center left', bbox_to_anchor=(1, 0.5))
             plt.autoscale() 
             plt.savefig("../results/B10/"+variables_and_legend[-2]+".png",  bbox_inches="tight")
+
     def error_calculation(self):
+        '''
+        Calculates the errors
+        '''
         error = []
         if self.error_type == "H":
             ns_lat = self.collect_data('NS_LAT')
@@ -101,8 +105,12 @@ class B:
         return error
 
 class Performance:
-    # modes: name: [[HPE Limit, HPE percentil],[VPE limit, VPE percentil], [HAL limit, HAL percentil], [VAL limit, VAL percentil]]
+    '''
+    This class implements the performance statistics
+    modes: name: [[HPE Limit, HPE percentil],[VPE limit, VPE percentil], [HAL limit, HAL percentil], [VAL limit, VAL percentil]]
+    '''
     def __init__(self, data):
+        '''Construct'''
         self.data = data
     
     def limit_percentil(self, data1, data2, mode1, mode2):
@@ -138,7 +146,8 @@ class Performance:
         return results , values
 
     def generate_latex_tables_limit_percentil(self, accuracies, percentil_values,  mode1, mode2, name_table):
-         with open("../results/B10/tables/" + name_table + "_table.tex", 'w') as f:
+        '''Generates a file containing the latex tables'''
+        with open("../results/B10/tables/" + name_table + "_table.tex", 'w') as f:
             rows = []
             row_header = ["Modos de Operação"]
             k = 0
@@ -159,6 +168,7 @@ class Performance:
             f.write(table)
 
     def integrity_event(self, hpl, hpe, vpl, vpe):
+        '''Returns the integrity events'''
         path = "../data/EV_2022.B10"        # path to file
         f = open(path, 'r').read().split('\n')
         integrity_events = []
@@ -175,7 +185,8 @@ class Performance:
         return integrity_events
     
     def generate_latex_tables_integrity_event(self, integrity_events):
-         with open("../results/B10/tables/integrity_events_table.tex", 'w') as f:
+        ''' Generates the integrity events latex table'''
+        with open("../results/B10/tables/integrity_events_table.tex", 'w') as f:
             rows = []
             row_header = ["Evento de Integridade", 'RX_TOM', 'RX_WEEK', 'NSV_LOCK', 'NSV_USED', 'NS_LAT', 'NS_LON', 'NS_ALT', 'NS_VE', 'NS_VN', 'NS_VU', 'NS_HPL', 'NS_VPL', 'REF_LAT', 'REF_LON', 'REF_ALT', 'Erro', 'Diferença']
             for j in integrity_events: 
@@ -208,7 +219,8 @@ class Performance:
         return availability
 
     def generate_latex_tables_availability(self, availability):
-         with open("../results/B10/tables/availability_table.tex", 'w') as f:
+        '''Generates latex tables with the availability information'''
+        with open("../results/B10/tables/availability_table.tex", 'w') as f:
             rows = []
             row_header = ["Disponibilidade (%)", 'Sim', 'Não']
             l = 0
@@ -230,7 +242,8 @@ class Performance:
             f.write(table)
     
     def generate_latex_tables_continuity(self, continuity):
-         with open("../results/B10/tables/continuity_table.tex", 'w') as f:
+        '''Generates latex tables for continuity'''
+        with open("../results/B10/tables/continuity_table.tex", 'w') as f:
             rows = []
             row_header = ["Continuidade ([0-1])"]
             l = 0

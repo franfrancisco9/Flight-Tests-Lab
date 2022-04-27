@@ -75,10 +75,12 @@ class A:
         plt.savefig("../results/A10/espetro_a"+str(self.n)+".png")
 
     def get_results_peaks(self):
+        '''get_results_peaks function returns results of the peaks'''
         return self.peaksf, self.peaksm
 
     def generate_latex_tables_peaks(self, accelerations, i):
-         with open("../results/A10/tables/peaks_results_a"+str(i)+".tex", 'w') as f:
+        '''generate_latex_tables_peaks to a file'''
+        with open("../results/A10/tables/peaks_results_a"+str(i)+".tex", 'w') as f:
             rows = []
             row_header = ["Picos de a"+str(i)] 
             row_f = ["Frequência [Hz]"]

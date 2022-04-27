@@ -101,6 +101,9 @@ class C:
                 f.write(line)
 
     def occurence_counter(self, n1, n2, file = []):
+        '''
+        Counter the number of occurences of the given n values
+        '''
         if file == []:
             acceleration = self.acceleration_converter()
         else:
@@ -130,6 +133,9 @@ class C:
         return occurrences
 
     def occurence_counter_file(self, n1, n2):
+        '''
+        return the occurence counter of a file 
+        '''
         with open("../results/C10/local_extreme.txt", 'r') as f:
             accelerations = []
             for line in f:
@@ -139,6 +145,9 @@ class C:
     
 
     def save_occurence(self, occurrences, name, pairs):
+        '''
+        save the data of occurence_counter into a file 
+        '''
         with open("../results/C10/" + name + ".txt", 'w') as f:
             for i in range(len(occurrences)):
                 f.write('N_1 = ' + str(pairs[i][0]) + ' g e N_2 = ' + str(pairs[i][1]) + ' g ---> ' + str(occurrences[i]) + ' ocorrências' + '\n')
